@@ -49,14 +49,14 @@ APP_SOURCE_PATH += src $(ETHEREUM_PLUGIN_SDK)
 # Application icons following guidelines:
 # https://developers.ledger.com/docs/embedded-app/design-requirements/#device-icon
 ICON_ID = $(shell echo -n "$(APPNAME)" | tr " " "_" | tr "[:upper:]" "[:lower:]")
-ICON_NANOS = icons/nanos_app_cian.gif
-ICON_NANOX = icons/nanox_app_cian.gif
+ICON_NANOS = icons/nanos_app_$(ICON_ID).gif
+ICON_NANOX = icons/nanox_app_$(ICON_ID).gif
 ICON_NANOSP = $(ICON_NANOX)
-ICON_STAX = icons/stax_app_cian.gif
+ICON_STAX = icons/stax_app_$(ICON_ID).gif
 
 ifeq ($(TARGET_NAME),TARGET_STAX)
-	DEFINES += ICONGLYPH=C_stax_$(ICON_ID)_64px
-	DEFINES += ICONBITMAP=C_stax_$(ICON_ID)_64px_bitmap
+	DEFINES += ICONGLYPH=C_stax_pluginboilerplate_64px
+	DEFINES += ICONBITMAP=C_stax_pluginboilerplate_64px_bitmap
 endif
 
 # Application allowed derivation curves.
