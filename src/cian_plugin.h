@@ -89,6 +89,14 @@ static inline void printf_hex_array(const char *title __attribute__((unused)),
     PRINTF("\n");
 }
 
+#define CHECK_AND_HANDLE_OFFSET(msg_ptr, context_ptr)                              \
+    if ((context_ptr)->go_to_offset) {                                             \
+        if ((msg_ptr)->parameterOffset != (context_ptr)->offset + SELECTOR_SIZE) { \
+            return;                                                                \
+        }                                                                          \
+        (context_ptr)->go_to_offset = false;                                       \
+    }
+
 typedef enum {
     VAULT_SEND_SCREEN,
     VAULT_WITHDRAW_SCREEN,

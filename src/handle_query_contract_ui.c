@@ -8,19 +8,19 @@ static void set_send_ui(ethQueryContractUI_t *msg, const context_t *context) {
     }
     strlcpy(msg->title, "Send", msg->titleLength);
     PRINTF("msg->chainId    = %s\n", msg->network_ticker);
-    cian_ui_info_t sendInfos[4];
-    sendInfos[0] = (cian_ui_info_t){UNUSED, ETHEREUM_STETH_VAULT_ADDR, "STETH"};
-    sendInfos[1] = (cian_ui_info_t){UNUSED, ETHEREUM_RETH_VAULT_ADDR, "RETH"};
-    sendInfos[2] = (cian_ui_info_t){UNUSED, ARBITRUM_WSTETH_VAULT_ADDR, "WSTETH"};
-    sendInfos[3] = (cian_ui_info_t){UNUSED, OPTIMISM_WSTETH_VAULT_ADDR, "WSTETH"};
-    for (size_t i = 0; i < sizeof(sendInfos) / sizeof(sendInfos[0]); i++) {
+    cian_ui_info_t infos[4];
+    infos[0] = (cian_ui_info_t){UNUSED, (uint8_t *) ETHEREUM_STETH_VAULT_ADDR, "STETH"};
+    infos[1] = (cian_ui_info_t){UNUSED, (uint8_t *) ETHEREUM_RETH_VAULT_ADDR, "RETH"};
+    infos[2] = (cian_ui_info_t){UNUSED, (uint8_t *) ARBITRUM_WSTETH_VAULT_ADDR, "WSTETH"};
+    infos[3] = (cian_ui_info_t){UNUSED, (uint8_t *) OPTIMISM_WSTETH_VAULT_ADDR, "WSTETH"};
+    for (size_t i = 0; i < sizeof(infos) / sizeof(infos[0]); i++) {
         if (memcmp((uint8_t *) msg->pluginSharedRO->txContent->destination,
-                   sendInfos[i].contract_address,
+                   infos[i].contract_address,
                    ADDRESS_LENGTH) == 0) {
             amountToString(context->amount_in_out,
                            sizeof(context->amount_in_out),
                            WEI_TO_ETHER,
-                           sendInfos[i].ticker,
+                           infos[i].ticker,
                            msg->msg,
                            msg->msgLength);
             return;
@@ -65,20 +65,23 @@ static void set_wrapper_deposit_wapto_ui(ethQueryContractUI_t *msg, const contex
         return;
     }
     strlcpy(msg->title, "SwapForDeposit", msg->titleLength);
-    cian_ui_info_t depositInfos[4];
-    depositInfos[0] = (cian_ui_info_t){UNUSED, ETHEREUM_STETH_VAULT_WRAPPER_ADDR, "STETH(min)"};
-    depositInfos[1] = (cian_ui_info_t){UNUSED, ETHEREUM_RETH_VAULT_WRAPPER_ADDR, "RETH(min)"};
-    depositInfos[2] = (cian_ui_info_t){UNUSED, ARBITRUM_WSTETH_VAULT_WRAPPER_ADDR, "WSTETH(min)"};
-    depositInfos[3] = (cian_ui_info_t){UNUSED, OPTIMISM_WSTETH_VAULT_WRAPPER_ADDR, "WSTETH(min)"};
+    cian_ui_info_t infos[4];
+    infos[0] =
+        (cian_ui_info_t){UNUSED, (uint8_t *) ETHEREUM_STETH_VAULT_WRAPPER_ADDR, "STETH(min)"};
+    infos[1] = (cian_ui_info_t){UNUSED, (uint8_t *) ETHEREUM_RETH_VAULT_WRAPPER_ADDR, "RETH(min)"};
+    infos[2] =
+        (cian_ui_info_t){UNUSED, (uint8_t *) ARBITRUM_WSTETH_VAULT_WRAPPER_ADDR, "WSTETH(min)"};
+    infos[3] =
+        (cian_ui_info_t){UNUSED, (uint8_t *) OPTIMISM_WSTETH_VAULT_WRAPPER_ADDR, "WSTETH(min)"};
 
-    for (size_t i = 0; i < sizeof(depositInfos) / sizeof(cian_ui_info_t); i++) {
+    for (size_t i = 0; i < sizeof(infos) / sizeof(cian_ui_info_t); i++) {
         if (memcmp((uint8_t *) msg->pluginSharedRO->txContent->destination,
-                   depositInfos[i].contract_address,
+                   infos[i].contract_address,
                    ADDRESS_LENGTH) == 0) {
             amountToString(context->amount_received,
                            sizeof(context->amount_received),
                            WEI_TO_ETHER,
-                           depositInfos[i].ticker,
+                           infos[i].ticker,
                            msg->msg,
                            msg->msgLength);
             return;
@@ -128,15 +131,15 @@ static void set_wrapper_send_wsteth_ui(ethQueryContractUI_t *msg, const context_
 static void set_withdraw_ui(ethQueryContractUI_t *msg, const context_t *context) {
     PRINTF("msgscreenIndex = %d\n", context->selectorIndex);
 
-    cian_ui_info_t withdrawInfos[8];
-    withdrawInfos[0] = (cian_ui_info_t){UNUSED, ETHEREUM_STETH_VAULT_ADDR, "STETH"};
-    withdrawInfos[1] = (cian_ui_info_t){UNUSED, ETHEREUM_STETH_VAULT_WRAPPER_ADDR, "STETH"};
-    withdrawInfos[2] = (cian_ui_info_t){UNUSED, ETHEREUM_RETH_VAULT_ADDR, "RETH"};
-    withdrawInfos[3] = (cian_ui_info_t){UNUSED, ETHEREUM_RETH_VAULT_WRAPPER_ADDR, "RETH"};
-    withdrawInfos[4] = (cian_ui_info_t){UNUSED, ARBITRUM_WSTETH_VAULT_ADDR, "WSTETH"};
-    withdrawInfos[5] = (cian_ui_info_t){UNUSED, ARBITRUM_WSTETH_VAULT_WRAPPER_ADDR, "WSTETH"};
-    withdrawInfos[6] = (cian_ui_info_t){UNUSED, OPTIMISM_WSTETH_VAULT_ADDR, "WSTETH"};
-    withdrawInfos[7] = (cian_ui_info_t){UNUSED, OPTIMISM_WSTETH_VAULT_WRAPPER_ADDR, "WSTETH"};
+    cian_ui_info_t infos[8];
+    infos[0] = (cian_ui_info_t){UNUSED, (uint8_t *) ETHEREUM_STETH_VAULT_ADDR, "STETH"};
+    infos[1] = (cian_ui_info_t){UNUSED, (uint8_t *) ETHEREUM_STETH_VAULT_WRAPPER_ADDR, "STETH"};
+    infos[2] = (cian_ui_info_t){UNUSED, (uint8_t *) ETHEREUM_RETH_VAULT_ADDR, "RETH"};
+    infos[3] = (cian_ui_info_t){UNUSED, (uint8_t *) ETHEREUM_RETH_VAULT_WRAPPER_ADDR, "RETH"};
+    infos[4] = (cian_ui_info_t){UNUSED, (uint8_t *) ARBITRUM_WSTETH_VAULT_ADDR, "WSTETH"};
+    infos[5] = (cian_ui_info_t){UNUSED, (uint8_t *) ARBITRUM_WSTETH_VAULT_WRAPPER_ADDR, "WSTETH"};
+    infos[6] = (cian_ui_info_t){UNUSED, (uint8_t *) OPTIMISM_WSTETH_VAULT_ADDR, "WSTETH"};
+    infos[7] = (cian_ui_info_t){UNUSED, (uint8_t *) OPTIMISM_WSTETH_VAULT_WRAPPER_ADDR, "WSTETH"};
 
     switch (context->selectorIndex) {
         case VAULT_WITHDRAW:
@@ -144,14 +147,14 @@ static void set_withdraw_ui(ethQueryContractUI_t *msg, const context_t *context)
         case VAULT_WRAPPER_WITHDRAW:
         case VAULT_WRAPPER_WITHDRAW_WSTETH:
             strlcpy(msg->title, "Withdraw", msg->titleLength);
-            for (size_t i = 0; i < sizeof(withdrawInfos) / sizeof(cian_ui_info_t); i++) {
+            for (size_t i = 0; i < sizeof(infos) / sizeof(cian_ui_info_t); i++) {
                 if (memcmp((uint8_t *) msg->pluginSharedRO->txContent->destination,
-                           withdrawInfos[i].contract_address,
+                           infos[i].contract_address,
                            ADDRESS_LENGTH) == 0) {
                     amountToString(context->amount_in_out,
                                    sizeof(context->amount_in_out),
                                    WEI_TO_ETHER,
-                                   withdrawInfos[i].ticker,
+                                   infos[i].ticker,
                                    msg->msg,
                                    msg->msgLength);
                 }
@@ -175,6 +178,10 @@ static void set_beneficiary_ui(ethQueryContractUI_t *msg, context_t *context) {
     // Setting it to `0` will make it work with every chainID :)
     uint64_t chainid = 0;
 
+    if (msg->msgLength < 43) {
+        PRINTF("msg length error!");
+        return;
+    }
     // Get the string representation of the address stored in `context->beneficiary`. Put it in
     // `msg->msg`.
     getEthAddressStringFromBinary(

@@ -7,16 +7,16 @@ void handle_finalize(void *parameters) {
     msg->uiType = ETH_UI_TYPE_GENERIC;
 
     switch (context->selectorIndex) {
-        case VAULT_DEPOSIT:
-        case VAULT_WITHDRAW:
+        case VAULT_DEPOSIT:  /* fall through */
+        case VAULT_WITHDRAW: /* fall through */
         case VAULT_WRAPPER_DEPOSIT_WSTETH:
             msg->numScreens = 1;
             break;
-        case VAULT_DELEVERAGE_WITHDRAW:
+        case VAULT_DELEVERAGE_WITHDRAW: /* fall through */
         case VAULT_WRAPPER_DEPOSIT:
             msg->numScreens = 3;
             break;
-        case VAULT_WRAPPER_WITHDRAW:
+        case VAULT_WRAPPER_WITHDRAW: /* fall through */
         case VAULT_WRAPPER_WITHDRAW_WSTETH:
             msg->numScreens = 2;
             break;

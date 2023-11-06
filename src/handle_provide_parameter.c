@@ -1,12 +1,7 @@
 #include "cian_plugin.h"
 
 static void handle_vault_deposit(ethPluginProvideParameter_t *msg, context_t *context) {
-    if (context->go_to_offset) {
-        if (msg->parameterOffset != context->offset + SELECTOR_SIZE) {
-            return;
-        }
-        context->go_to_offset = false;
-    }
+    CHECK_AND_HANDLE_OFFSET(msg, context);
 
     switch (context->next_param) {
         case AMOUNT_IN:  // amountIn
@@ -26,12 +21,7 @@ static void handle_vault_deposit(ethPluginProvideParameter_t *msg, context_t *co
 }
 
 static void handle_vault_withdraw(ethPluginProvideParameter_t *msg, context_t *context) {
-    if (context->go_to_offset) {
-        if (msg->parameterOffset != context->offset + SELECTOR_SIZE) {
-            return;
-        }
-        context->go_to_offset = false;
-    }
+    CHECK_AND_HANDLE_OFFSET(msg, context);
 
     switch (context->next_param) {
         case AMOUNT_OUT:  // amountIn
@@ -55,12 +45,7 @@ static void handle_vault_withdraw(ethPluginProvideParameter_t *msg, context_t *c
 }
 
 static void handle_vault_deleverage_withdraw(ethPluginProvideParameter_t *msg, context_t *context) {
-    if (context->go_to_offset) {
-        if (msg->parameterOffset != context->offset + SELECTOR_SIZE) {
-            return;
-        }
-        context->go_to_offset = false;
-    }
+    CHECK_AND_HANDLE_OFFSET(msg, context);
 
     switch (context->next_param) {
         case PROTOCOL_ID:  // lend protocol type
@@ -111,12 +96,7 @@ static void handle_vault_deleverage_withdraw(ethPluginProvideParameter_t *msg, c
 }
 
 static void handle_vault_wrapper_deposit(ethPluginProvideParameter_t *msg, context_t *context) {
-    if (context->go_to_offset) {
-        if (msg->parameterOffset != context->offset + SELECTOR_SIZE) {
-            return;
-        }
-        context->go_to_offset = false;
-    }
+    CHECK_AND_HANDLE_OFFSET(msg, context);
 
     switch (context->next_param) {
         case AMOUNT_IN:  // amountIn
@@ -153,12 +133,7 @@ static void handle_vault_wrapper_deposit(ethPluginProvideParameter_t *msg, conte
 }
 
 static void handle_vault_wrapper_withdraw(ethPluginProvideParameter_t *msg, context_t *context) {
-    if (context->go_to_offset) {
-        if (msg->parameterOffset != context->offset + SELECTOR_SIZE) {
-            return;
-        }
-        context->go_to_offset = false;
-    }
+    CHECK_AND_HANDLE_OFFSET(msg, context);
 
     switch (context->next_param) {
         case AMOUNT_OUT:  // amountIn
@@ -203,12 +178,7 @@ static void handle_vault_wrapper_withdraw(ethPluginProvideParameter_t *msg, cont
 
 static void handle_vault_wrapper_deposit_wsteth(ethPluginProvideParameter_t *msg,
                                                 context_t *context) {
-    if (context->go_to_offset) {
-        if (msg->parameterOffset != context->offset + SELECTOR_SIZE) {
-            return;
-        }
-        context->go_to_offset = false;
-    }
+    CHECK_AND_HANDLE_OFFSET(msg, context);
 
     switch (context->next_param) {
         case AMOUNT_IN:  // amountIn
@@ -229,12 +199,7 @@ static void handle_vault_wrapper_deposit_wsteth(ethPluginProvideParameter_t *msg
 
 static void handle_vault_wrapper_withdraw_wsteth(ethPluginProvideParameter_t *msg,
                                                  context_t *context) {
-    if (context->go_to_offset) {
-        if (msg->parameterOffset != context->offset + SELECTOR_SIZE) {
-            return;
-        }
-        context->go_to_offset = false;
-    }
+    CHECK_AND_HANDLE_OFFSET(msg, context);
 
     switch (context->next_param) {
         case AMOUNT_OUT:  // amountOut
