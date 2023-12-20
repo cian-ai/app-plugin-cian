@@ -1,5 +1,5 @@
 {
-    "chainId": 1,
+    "chainId": 42161,
     "contracts": [
         {
             "address": "0xf2254b4da1d68540b855e4d219aac1ef0edba575",

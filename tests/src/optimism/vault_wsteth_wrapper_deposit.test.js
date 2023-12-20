@@ -2,7 +2,7 @@ import { waitForAppScreen, zemu, genericTx, nano_models, SPECULOS_ADDRESS, plugi
 import { ethers } from "ethers";
 import { parseEther, parseUnits } from "ethers/lib/utils";
 
-const contractAddr = "0xe946dd7d03f6f5c440f68c84808ca88d26475fc5";
+const contractAddr = "0x6a8cddcfa1fc3d804578f65f32f19fafc94a89fe";
 const testNetwork = optimism_network;
 const abi_path = `../../networks/${testNetwork.name}/${pluginName}/abis/` + contractAddr + '.json';
 const abi = require(abi_path);
