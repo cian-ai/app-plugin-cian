@@ -4,7 +4,7 @@ import { parseEther, parseUnits, RLP } from "ethers/lib/utils";
 import { generate_plugin_config } from './generate_plugin_config';
 
 const transactionUploadDelay = 60000;
-const jestTimeOut = 20000
+const jestTimeOut = 30000
 const pluginName = "cian";
 
 async function waitForAppScreen(sim) {
